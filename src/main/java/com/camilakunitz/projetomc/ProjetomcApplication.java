@@ -1,13 +1,8 @@
 package com.camilakunitz.projetomc;
 
-import com.camilakunitz.projetomc.domain.Categoria;
-import com.camilakunitz.projetomc.domain.Cidade;
-import com.camilakunitz.projetomc.domain.Estado;
-import com.camilakunitz.projetomc.domain.Produto;
-import com.camilakunitz.projetomc.repositories.CategoriaRepository;
-import com.camilakunitz.projetomc.repositories.CidadeRepository;
-import com.camilakunitz.projetomc.repositories.EstadoRepository;
-import com.camilakunitz.projetomc.repositories.ProdutoRepository;
+import com.camilakunitz.projetomc.domain.*;
+import com.camilakunitz.projetomc.domain.enums.TipoCliente;
+import com.camilakunitz.projetomc.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -26,6 +21,10 @@ public class ProjetomcApplication implements CommandLineRunner {
 	private CidadeRepository cidadeRepository;
 	@Autowired
 	private EstadoRepository estadoRepository;
+	@Autowired
+	private ClienteRepository clienteRepository;
+	@Autowired
+	private EnderecoRepository enderecoRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(ProjetomcApplication.class, args);
@@ -64,5 +63,16 @@ public class ProjetomcApplication implements CommandLineRunner {
 
 		estadoRepository.saveAll(Arrays.asList(est1, est2));
 		cidadeRepository.saveAll(Arrays.asList(c1, c2, c3));
+
+		Cliente cli1 = new Cliente(null, "Maria Silva", "maria@gmail.com", "345678910", TipoCliente.PESSOAFISICA);
+		cli1.getTelefones().addAll(Arrays.asList("12345", "678910"));
+
+		Endereco e1 = new Endereco(null, "Rua Flores", "300", "Apto 303", "Jardim", "38220834", cli1, c1);
+		Endereco e2 = new Endereco(null, "Rua Luz", "400", "Apto 403", "Azul", "38556792", cli1, c2);
+
+		cli1.getEnderecos().addAll(Arrays.asList(e1, e2));
+
+		clienteRepository.saveAll(Arrays.asList(cli1));
+		enderecoRepository.saveAll(Arrays.asList(e1, e2));
 	}
 }
