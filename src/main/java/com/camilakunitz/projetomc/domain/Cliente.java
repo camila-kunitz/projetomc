@@ -1,6 +1,7 @@
 package com.camilakunitz.projetomc.domain;
 
 import com.camilakunitz.projetomc.domain.enums.TipoCliente;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.*;
@@ -15,6 +16,7 @@ public class Cliente {
     private String cpfOuCnpj;
     private Integer tipo;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "cliente")
     private List<Endereco> enderecos = new ArrayList<>();
 
