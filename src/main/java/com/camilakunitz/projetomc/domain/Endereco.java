@@ -1,7 +1,6 @@
 package com.camilakunitz.projetomc.domain;
 
-import com.camilakunitz.projetomc.domain.enums.TipoCliente;
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.Objects;
@@ -18,7 +17,7 @@ public class Endereco {
     private String bairro;
     private String cep;
 
-    @JsonBackReference
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name="cliente_id")
     private Cliente cliente;
