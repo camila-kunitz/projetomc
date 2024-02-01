@@ -1,6 +1,7 @@
 package com.camilakunitz.projetomc.domain;
 
 import com.camilakunitz.projetomc.domain.enums.EstadoPagamento;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.util.Objects;
@@ -13,6 +14,7 @@ public abstract class Pagamento {
     private Integer id;
     private Integer estado;
 
+    @JsonBackReference
     @OneToOne
     @JoinColumn(name = "pedido_id")
     @MapsId
